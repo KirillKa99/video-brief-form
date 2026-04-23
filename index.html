@@ -18,7 +18,6 @@
       --accent-3: #26d6a6;
       --danger: #ff6b7c;
       --shadow: 0 30px 80px rgba(0,0,0,0.34);
-      --radius: 24px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -150,15 +149,6 @@
       gap: 16px;
       align-content: start;
     }
-    .quote-card {
-      padding: 20px;
-      border-radius: 20px;
-      border: 1px solid var(--line);
-      background: linear-gradient(135deg, rgba(111,139,255,0.12), rgba(155,109,255,0.12));
-    }
-    .quote-card .label { color: var(--muted); font-size: 13px; }
-    .quote-price { font-size: 38px; font-weight: 900; margin: 8px 0 6px; }
-    .quote-meta { color: var(--muted); font-size: 14px; }
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
@@ -240,14 +230,12 @@
     .price-row span { color: var(--muted); }
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(340px, 0.9fr);
+      grid-template-columns: 1fr;
       gap: 24px;
       align-items: start;
       margin: 24px 0 50px;
     }
-    .form-shell {
-      overflow: hidden;
-    }
+    .form-shell { overflow: hidden; }
     .form-header {
       padding: 26px 28px;
       border-bottom: 1px solid var(--line);
@@ -258,9 +246,7 @@
       flex-wrap: wrap;
     }
     .form-header h2 { margin: 0; font-size: 28px; }
-    .progress-wrap {
-      min-width: 280px;
-    }
+    .progress-wrap { min-width: 280px; }
     .progress-top {
       display: flex;
       justify-content: space-between;
@@ -285,14 +271,8 @@
       border-top: 1px solid var(--line);
     }
     .form-section:first-of-type { border-top: 0; }
-    .form-section h3 {
-      margin: 0 0 10px;
-      font-size: 23px;
-    }
-    .form-section .sub {
-      color: var(--muted);
-      margin: 0 0 18px;
-    }
+    .form-section h3 { margin: 0 0 10px; font-size: 23px; }
+    .form-section .sub { color: var(--muted); margin: 0 0 18px; }
     .grid-2, .grid-3 {
       display: grid;
       gap: 14px;
@@ -355,9 +335,7 @@
       background: linear-gradient(135deg, rgba(111,139,255,0.22), rgba(155,109,255,0.20));
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 10px 28px rgba(111,139,255,0.16);
     }
-    .chip input:hover + span {
-      border-color: rgba(111,139,255,0.36);
-    }
+    .chip input:hover + span { border-color: rgba(111,139,255,0.36); }
     .step-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -373,16 +351,17 @@
       color: var(--muted);
     }
     .mini-step strong { display: block; margin-bottom: 4px; color: var(--text); }
-    .side {
-      position: sticky;
-      top: 88px;
-      display: grid;
-      gap: 16px;
-    }
+    .side { display: grid; gap: 16px; }
     .quote-box {
       padding: 22px;
       border-bottom: 1px solid var(--line);
     }
+    .calc-toggle {
+      width: 100%;
+      justify-content: space-between;
+    }
+    .calc-panel { display: none; }
+    .calc-panel.open { display: block; }
     .quote-box h3 { margin: 0 0 8px; font-size: 24px; }
     .quote-tag {
       display: inline-flex;
@@ -402,10 +381,7 @@
       letter-spacing: -0.03em;
       margin: 0;
     }
-    .quote-note {
-      color: var(--muted);
-      margin-top: 8px;
-    }
+    .quote-note { color: var(--muted); margin-top: 8px; }
     .breakdown {
       padding: 0 22px 22px;
       display: grid;
@@ -438,10 +414,7 @@
       border: 1px solid rgba(111,139,255,0.34);
       background: linear-gradient(135deg, rgba(111,139,255,0.13), rgba(155,109,255,0.12));
     }
-    .live-box h4 {
-      margin: 0 0 6px;
-      font-size: 22px;
-    }
+    .live-box h4 { margin: 0 0 6px; font-size: 22px; }
     .live-price {
       font-size: 34px;
       font-weight: 900;
@@ -467,9 +440,7 @@
       font-size: 14px;
       line-height: 1.5;
     }
-    .result-summary strong {
-      color: var(--text);
-    }
+    .result-summary strong { color: var(--text); }
     .danger {
       background: rgba(255,107,124,0.12);
       color: #ffd3da;
@@ -482,8 +453,7 @@
       font-size: 14px;
     }
     @media (max-width: 1080px) {
-      .hero-grid, .layout, .cards-3, .cards-2 { grid-template-columns: 1fr; }
-      .side { position: static; }
+      .hero-grid, .cards-3, .cards-2 { grid-template-columns: 1fr; }
       .hero-points, .step-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 720px) {
@@ -528,8 +498,8 @@
               <span>Только нужные вопросы, чтобы быстро оценить задачу без лишней переписки.</span>
             </div>
             <div class="point">
-              <strong>Мгновенный расчет</strong>
-              <span>Стоимость меняется сразу при выборе параметров и помогает понять ориентир по бюджету.</span>
+              <strong>Цена по желанию</strong>
+              <span>Если нужен ориентир по стоимости, можно отдельно открыть блок предварительного расчета.</span>
             </div>
             <div class="point">
               <strong>Быстрая обратная связь</strong>
@@ -538,11 +508,6 @@
           </div>
         </div>
         <div class="glass hero-side">
-          <div class="quote-card">
-            <div class="label">Пример базовой стоимости</div>
-            <div class="quote-price" id="heroPrice">4 000–6 000 ₽</div>
-            <div class="quote-meta" id="heroComment">Выберите параметры ниже, и стоимость пересчитается автоматически.</div>
-          </div>
           <div class="card">
             <h3>Что влияет на цену</h3>
             <ul>
@@ -620,7 +585,7 @@
       <div class="step-grid">
         <div class="mini-step"><strong>Шаг 1</strong>Вы выбираете формат, длительность и тип ролика.</div>
         <div class="mini-step"><strong>Шаг 2</strong>Указываете сценарий, материалы и дополнительные элементы.</div>
-        <div class="mini-step"><strong>Шаг 3</strong>Предварительная стоимость обновляется автоматически по выбранным параметрам.</div>
+        <div class="mini-step"><strong>Шаг 3</strong>Если нужно, открываете блок предварительного расчета и смотрите ориентир по стоимости.</div>
         <div class="mini-step"><strong>Шаг 4</strong>После отправки заявки мы изучаем бриф и связываемся с вами для подтверждения деталей.</div>
       </div>
     </section>
@@ -630,7 +595,7 @@
         <div class="form-header">
           <div>
             <h2>Чёткий бриф для клиента</h2>
-            <div class="muted">Все нужные вопросы, без воды. Заполнение сразу влияет на стоимость.</div>
+            <div class="muted">Все нужные вопросы, без воды. Калькулятор можно открыть отдельно, если нужен ориентир по цене.</div>
           </div>
           <div class="progress-wrap">
             <div class="progress-top"><span>Заполнение брифа</span><span id="progressText">0%</span></div>
@@ -800,30 +765,33 @@
             <textarea id="extraNotes" name="extraNotes" placeholder="Что важно учесть, чего избегать, какие ограничения есть"></textarea>
           </div>
           <div class="live-box">
-            <div class="muted">Предварительная стоимость обновляется автоматически</div>
-            <h4>Ваш текущий расчет</h4>
+            <div class="muted">Предварительный расчет можно открыть отдельно</div>
+            <h4>Стоимость по желанию</h4>
             <div class="live-price" id="bottomPriceRange">4 000–6 000 ₽</div>
-            <div class="muted" id="bottomPriceComment">Выберите параметры выше, и цена обновится в реальном времени.</div>
+            <div class="muted" id="bottomPriceComment">Если нужен ориентир, откройте блок предварительного расчета. Если нет, просто заполните бриф.</div>
           </div>
         </div>
       </form>
 
       <aside class="glass side">
-        <div class="quote-box">
-          <div class="quote-tag">● realtime calculator</div>
-          <h3>Предварительный расчет</h3>
-          <p class="quote-big" id="priceRange">4 000–6 000 ₽</p>
-          <div class="quote-note" id="priceComment">Финальная стоимость уточняется после проверки брифа.</div>
-        </div>
-        <div class="breakdown" id="calcBreakdown"></div>
         <div class="cta-box">
+          <button type="button" class="btn btn-secondary btn-full calc-toggle" id="toggleCalcBtn">Показать предварительный расчет <span id="toggleCalcIcon">+</span></button>
+          <div class="calc-panel" id="calcPanel">
+            <div class="quote-box">
+              <div class="quote-tag">● optional calculator</div>
+              <h3>Предварительный расчет</h3>
+              <p class="quote-big" id="priceRange">4 000–6 000 ₽</p>
+              <div class="quote-note" id="priceComment">Финальная стоимость уточняется после проверки брифа.</div>
+            </div>
+            <div class="breakdown" id="calcBreakdown"></div>
+          </div>
           <button type="button" class="btn btn-primary btn-full" id="submitBtn">Оставить заявку</button>
           <button type="button" class="btn btn-secondary btn-full" id="copyBtn">Скопировать заполненный бриф</button>
           <button type="button" class="btn btn-secondary btn-full" id="resetBtn" style="display:none">Отправить ещё одну заявку</button>
           <div class="success" id="successBox">Заявка отправлена.</div>
           <div class="result-summary" id="resultSummary"></div>
         </div>
-        <div class="hint">После отправки заявки мы получаем ваш бриф, изучаем задачу и связываемся с вами для уточнения деталей и финального расчета.</div>
+        <div class="hint">Если хотите, можно открыть предварительный расчет. Если нет, просто заполните бриф, и мы сами назовем стоимость после проверки.</div>
       </aside>
     </div>
 
@@ -881,11 +849,6 @@
         medium: [500, 1000],
         fast: [1000, 2500]
       },
-      format: {
-        '9:16': [0, 0],
-        '16:9': [0, 0],
-        '1:1': [0, 0]
-      },
       addons: {
         subtitles: [500, 1000],
         voice: [1000, 3000],
@@ -918,6 +881,10 @@
     const progressText = document.getElementById('progressText');
     const resultSummary = document.getElementById('resultSummary');
     const resetBtn = document.getElementById('resetBtn');
+    const toggleCalcBtn = document.getElementById('toggleCalcBtn');
+    const calcPanel = document.getElementById('calcPanel');
+    const toggleCalcIcon = document.getElementById('toggleCalcIcon');
+    let calculatorOpened = false;
 
     function formatRub(value) {
       return new Intl.NumberFormat('ru-RU').format(Math.round(value)) + ' ₽';
@@ -950,15 +917,7 @@
     }
 
     function updateProgress(values) {
-      const fields = [
-        values.fullName,
-        values.phone,
-        values.projectType,
-        values.taskDescription,
-        values.sceneCount,
-        values.references,
-        values.extraNotes
-      ];
+      const fields = [values.fullName, values.phone, values.projectType, values.taskDescription, values.sceneCount, values.references, values.extraNotes];
       let done = fields.filter(v => String(v).trim()).length;
       done += values.duration ? 1 : 0;
       done += values.videoType ? 1 : 0;
@@ -1007,7 +966,7 @@
       breakdown.push(['Темп ролика', pacePrice[0] || pacePrice[1] ? `${formatRub(pacePrice[0])}–${formatRub(pacePrice[1])}` : 'без доплаты']);
 
       values.addons.forEach(key => {
-        const add = pricing.addons[key] || [0,0];
+        const add = pricing.addons[key] || [0, 0];
         min += add[0];
         max += add[1];
         breakdown.push([labels[key] || key, `${formatRub(add[0])}–${formatRub(add[1])}`]);
@@ -1027,10 +986,8 @@
       const formatted = `${formatRub(min)}–${formatRub(max)}`;
       document.getElementById('priceRange').textContent = formatted;
       document.getElementById('bottomPriceRange').textContent = formatted;
-      document.getElementById('heroPrice').textContent = formatted;
       document.getElementById('priceComment').textContent = note;
-      document.getElementById('bottomPriceComment').textContent = note;
-      document.getElementById('heroComment').textContent = note;
+      document.getElementById('bottomPriceComment').textContent = calculatorOpened ? note : 'Если нужен ориентир, откройте блок предварительного расчета. Если нет, просто заполните бриф.';
       document.getElementById('calcBreakdown').innerHTML = breakdown.map(([label, value]) => `<div class="line-item"><span>${label}</span><strong>${value}</strong></div>`).join('');
 
       return { values, min, max, formatted };
@@ -1083,12 +1040,20 @@
         `<b>Согласование:</b> ${values.approval || '—'}`,
         `<b>Дополнительная информация:</b> ${values.extraNotes || '—'}`,
         '',
-        `💰 <b>Предварительная стоимость:</b> ${formatted}`
+        `💰 <b>Предварительная стоимость:</b> ${calculatorOpened ? formatted : 'не запрашивалась'}`
       ].join('\n');
     }
 
     form.addEventListener('input', calculate);
     calculate();
+
+    toggleCalcBtn.addEventListener('click', () => {
+      calculatorOpened = !calculatorOpened;
+      calcPanel.classList.toggle('open', calculatorOpened);
+      toggleCalcIcon.textContent = calculatorOpened ? '−' : '+';
+      toggleCalcBtn.childNodes[0].textContent = calculatorOpened ? 'Скрыть предварительный расчет ' : 'Показать предварительный расчет ';
+      calculate();
+    });
 
     document.getElementById('copyBtn').addEventListener('click', async () => {
       const text = buildMessage().replace(/<[^>]+>/g, '');
@@ -1100,6 +1065,10 @@
 
     resetBtn.addEventListener('click', () => {
       form.reset();
+      calculatorOpened = false;
+      calcPanel.classList.remove('open');
+      toggleCalcIcon.textContent = '+';
+      toggleCalcBtn.childNodes[0].textContent = 'Показать предварительный расчет ';
       calculate();
       successBox.style.display = 'none';
       resultSummary.style.display = 'none';
@@ -1118,12 +1087,6 @@
         successBox.style.display = 'block';
         successBox.textContent = 'Заполните обязательные поля. Мы уже прокрутили форму к первому незаполненному пункту.';
         scrollToField(missingField);
-        return;
-      }
-      if (TELEGRAM_BOT_TOKEN === 'PASTE_BOT_TOKEN_HERE' || TELEGRAM_CHAT_ID === 'PASTE_CHAT_ID_HERE') {
-        successBox.className = 'success danger';
-        successBox.style.display = 'block';
-        successBox.textContent = 'Подставьте TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID в код формы.';
         return;
       }
       try {
@@ -1147,14 +1110,14 @@
           Телефон: ${values.phone || '—'}<br>
           Тип видео: ${values.videoType === 'basic' ? 'базовое' : 'динамичное'}<br>
           Длительность: ${values.duration === '15' ? 'до 15 секунд' : '30–60 секунд'}<br>
-          Предварительная стоимость: <strong>${calculate().formatted}</strong>
+          Предварительная стоимость: <strong>${calculatorOpened ? calculate().formatted : 'не запрашивалась'}</strong>
         `;
         resetBtn.style.display = 'inline-flex';
         document.getElementById('submitBtn').style.display = 'none';
       } catch (error) {
         successBox.className = 'success danger';
         successBox.style.display = 'block';
-        successBox.textContent = 'Не удалось отправить заявку в Telegram. Проверьте bot token, chat id и доступ к API.';
+        successBox.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз.';
       }
     });
   </script>
