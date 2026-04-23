@@ -1036,6 +1036,24 @@
       return { values, min, max, formatted };
     }
 
+    function scrollToField(field) {
+      if (!field) return;
+      const top = field.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top, behavior: 'smooth' });
+      setTimeout(() => field.focus({ preventScroll: true }), 220);
+    }
+
+    function getFirstMissingRequiredField(values) {
+      const checks = [
+        { ok: values.fullName.trim(), field: document.getElementById('fullName') },
+        { ok: values.phone.trim(), field: document.getElementById('phone') },
+        { ok: values.projectType.trim(), field: document.getElementById('projectType') },
+        { ok: values.taskDescription.trim(), field: document.getElementById('taskDescription') }
+      ];
+      const missing = checks.find(item => !item.ok);
+      return missing ? missing.field : null;
+    }
+
     function buildMessage() {
       const { values, formatted } = calculate();
       return [
@@ -1094,10 +1112,12 @@
     document.getElementById('submitBtn').addEventListener('click', async () => {
       successBox.style.display = 'none';
       const { values } = calculate();
-      if (!values.fullName || !values.phone) {
+      const missingField = getFirstMissingRequiredField(values);
+      if (missingField) {
         successBox.className = 'success danger';
         successBox.style.display = 'block';
-        successBox.textContent = 'Заполните минимум имя и телефон.';
+        successBox.textContent = 'Заполните обязательные поля. Мы уже прокрутили форму к первому незаполненному пункту.';
+        scrollToField(missingField);
         return;
       }
       if (TELEGRAM_BOT_TOKEN === 'PASTE_BOT_TOKEN_HERE' || TELEGRAM_CHAT_ID === 'PASTE_CHAT_ID_HERE') {
