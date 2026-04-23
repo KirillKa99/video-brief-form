@@ -456,6 +456,20 @@
       color: #c5ffef;
       border: 1px solid rgba(38,214,166,0.26);
     }
+    .result-summary {
+      display: none;
+      padding: 18px;
+      margin-top: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .result-summary strong {
+      color: var(--text);
+    }
     .danger {
       background: rgba(255,107,124,0.12);
       color: #ffd3da;
@@ -803,9 +817,11 @@
         </div>
         <div class="breakdown" id="calcBreakdown"></div>
         <div class="cta-box">
-          <button type="button" class="btn btn-primary btn-full" id="submitBtn">Отправить заявку в Telegram</button>
+          <button type="button" class="btn btn-primary btn-full" id="submitBtn">Оставить заявку</button>
           <button type="button" class="btn btn-secondary btn-full" id="copyBtn">Скопировать заполненный бриф</button>
+          <button type="button" class="btn btn-secondary btn-full" id="resetBtn" style="display:none">Отправить ещё одну заявку</button>
           <div class="success" id="successBox">Заявка отправлена.</div>
+          <div class="result-summary" id="resultSummary"></div>
         </div>
         <div class="hint">После отправки заявки мы получаем ваш бриф, изучаем задачу и связываемся с вами для уточнения деталей и финального расчета.</div>
       </aside>
@@ -900,6 +916,8 @@
     const successBox = document.getElementById('successBox');
     const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
+    const resultSummary = document.getElementById('resultSummary');
+    const resetBtn = document.getElementById('resetBtn');
 
     function formatRub(value) {
       return new Intl.NumberFormat('ru-RU').format(Math.round(value)) + ' ₽';
@@ -1062,6 +1080,17 @@
       successBox.textContent = 'Заполненный бриф скопирован в буфер обмена.';
     });
 
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      calculate();
+      successBox.style.display = 'none';
+      resultSummary.style.display = 'none';
+      resultSummary.innerHTML = '';
+      resetBtn.style.display = 'none';
+      document.getElementById('submitBtn').style.display = 'inline-flex';
+      window.scrollTo({ top: document.getElementById('brief').offsetTop - 70, behavior: 'smooth' });
+    });
+
     document.getElementById('submitBtn').addEventListener('click', async () => {
       successBox.style.display = 'none';
       const { values } = calculate();
@@ -1088,11 +1117,20 @@
           })
         });
         if (!response.ok) throw new Error('Telegram send failed');
-        form.reset();
-        calculate();
         successBox.className = 'success';
         successBox.style.display = 'block';
         successBox.textContent = 'Заявка сформирована. Ожидайте, с вами свяжутся.';
+        resultSummary.style.display = 'block';
+        resultSummary.innerHTML = `
+          <strong>Что отправлено:</strong><br>
+          Имя: ${values.fullName || '—'}<br>
+          Телефон: ${values.phone || '—'}<br>
+          Тип видео: ${values.videoType === 'basic' ? 'базовое' : 'динамичное'}<br>
+          Длительность: ${values.duration === '15' ? 'до 15 секунд' : '30–60 секунд'}<br>
+          Предварительная стоимость: <strong>${calculate().formatted}</strong>
+        `;
+        resetBtn.style.display = 'inline-flex';
+        document.getElementById('submitBtn').style.display = 'none';
       } catch (error) {
         successBox.className = 'success danger';
         successBox.style.display = 'block';
