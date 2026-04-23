@@ -533,7 +533,9 @@
             <h3>Что влияет на цену</h3>
             <ul>
               <li>длительность видео</li>
-              <li>спокойное или динамичное видео</li>
+              <li>базовое или динамичное видео</li>
+              <li>количество сцен</li>
+              <li>темп монтажа</li>
               <li>наличие сценария</li>
               <li>наличие материалов</li>
               <li>субтитры, озвучка, графика, срочность</li>
@@ -674,7 +676,7 @@
 
         <div class="form-section">
           <h3>3. Формат и динамика</h3>
-          <p class="sub">Здесь клиент сам видит, почему базовое и динамичное видео считаются по-разному.</p>
+          <p class="sub">Здесь каждая ключевая настройка влияет на цену. Длительность, тип ролика, количество сцен и темп действительно меняют расчет.</p>
           <div class="grid-3">
             <div>
               <label class="field">Длительность</label>
@@ -697,6 +699,7 @@
                 <label class="chip"><input type="radio" name="format" value="16:9"><span>Горизонтальный 16:9</span></label>
                 <label class="chip"><input type="radio" name="format" value="1:1"><span>Квадрат 1:1</span></label>
               </div>
+              <div class="muted" style="margin-top:8px;font-size:13px">Формат сам по себе цену не меняет, но нужен для правильной подготовки ролика.</div>
             </div>
           </div>
           <div class="grid-2" style="margin-top:14px">
@@ -851,14 +854,28 @@
       materials: {
         full: [0, 0],
         partial: [1000, 2000],
-        none: [1000, 2000]
+        none: [2000, 4000]
+      },
+      sceneCount: {
+        medium: [500, 1000],
+        high: [1500, 3000]
+      },
+      pace: {
+        calm: [0, 0],
+        medium: [500, 1000],
+        fast: [1000, 2500]
+      },
+      format: {
+        '9:16': [0, 0],
+        '16:9': [0, 0],
+        '1:1': [0, 0]
       },
       addons: {
         subtitles: [500, 1000],
         voice: [1000, 3000],
-        music: [0, 500],
-        logo: [0, 500],
-        cta: [0, 500],
+        music: [500, 1000],
+        logo: [300, 700],
+        cta: [300, 700],
         infographics: [500, 2000],
         textAnimation: [500, 1500]
       },
@@ -953,6 +970,23 @@
       min += materials[0];
       max += materials[1];
       breakdown.push(['Материалы', materials[0] || materials[1] ? `${formatRub(materials[0])}–${formatRub(materials[1])}` : 'включено']);
+
+      const scenes = Number(values.sceneCount || 0);
+      if (scenes >= 8 && scenes <= 12) {
+        min += pricing.sceneCount.medium[0];
+        max += pricing.sceneCount.medium[1];
+        breakdown.push(['Доплата за 8–12 сцен', `${formatRub(pricing.sceneCount.medium[0])}–${formatRub(pricing.sceneCount.medium[1])}`]);
+      } else if (scenes >= 13) {
+        min += pricing.sceneCount.high[0];
+        max += pricing.sceneCount.high[1];
+        breakdown.push(['Доплата за 13+ сцен', `${formatRub(pricing.sceneCount.high[0])}–${formatRub(pricing.sceneCount.high[1])}`]);
+      }
+
+      const paceKey = values.pace === 'Спокойный' ? 'calm' : values.pace === 'Умеренный' ? 'medium' : 'fast';
+      const pacePrice = pricing.pace[paceKey];
+      min += pacePrice[0];
+      max += pacePrice[1];
+      breakdown.push(['Темп ролика', pacePrice[0] || pacePrice[1] ? `${formatRub(pacePrice[0])}–${formatRub(pacePrice[1])}` : 'без доплаты']);
 
       values.addons.forEach(key => {
         const add = pricing.addons[key] || [0,0];
