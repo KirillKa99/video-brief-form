@@ -823,7 +823,7 @@
 
   <script>
     const TELEGRAM_BOT_TOKEN = '8650838803:AAEFswL8hszcSFRfwJAflIa3hCEhXQSatuk';
-    const TELEGRAM_CHAT_ID = '611262240';
+    const TELEGRAM_CHAT_IDS = ['611262240', '443380107'];
 
     const pricing = {
       '15_basic': [4000, 6000],
@@ -1090,16 +1090,20 @@
         return;
       }
       try {
-        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: buildMessage(),
-            parse_mode: 'HTML'
-          })
-        });
-        if (!response.ok) throw new Error('Telegram send failed');
+        const responses = await Promise.all(
+          TELEGRAM_CHAT_IDS.map(chatId =>
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                chat_id: chatId,
+                text: buildMessage(),
+                parse_mode: 'HTML'
+              })
+            })
+          )
+        );
+        if (responses.some(response => !response.ok)) throw new Error('Telegram send failed');
         successBox.className = 'success';
         successBox.style.display = 'block';
         successBox.textContent = 'Заявка сформирована. Ожидайте, с вами свяжутся.';
